@@ -10,8 +10,8 @@ export default function UserPage({ params }) {
 
     const { data } = useGetUserQuery(slug);
     const { currentData } = useGetUserPostsQuery(slug);
-    console.log(currentData)
-
+    // console.log(currentData)
+    const show = false;
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function UserPage({ params }) {
                         </div>
                     </div>
                 </div>
-                <UserPosts posts={posts}/>
+                <UserPosts show={show} posts={posts}/>
             </div> 
         );
     }

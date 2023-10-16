@@ -7,7 +7,7 @@ import { useUpdateUserMutation, useDeletePostsMutation } from "@/redux";
 
 export default function Profile() {
     const { data: session, status, update  } = useSession()   
-    // console.log(session)
+    const show = true;
     const [ updateUser ] = useUpdateUserMutation();
     const [ deletePosts ] = useDeletePostsMutation();
 
@@ -126,8 +126,12 @@ export default function Profile() {
             const updatedUserData = await updateUser({ id, user });
 
             if (updatedUserData.data.status === 'ok') {
-                console.log(updatedUserData.data.message);
-                console.log(user.username)
+                // console.log(updatedUserData.data.message);
+                // console.log(user.username)
+                setSuccess(updatedUserData.data.message);
+                setTimeout(() => {
+                    setSuccess('')
+                }, 2000);
                 update({
                     username: user.username,
                     email: user.email,
@@ -136,6 +140,7 @@ export default function Profile() {
                     username: false,
                     email: false
                 })
+                console.log(user)
             } else {
                 throw new Error('Failed to update user')
             }
@@ -201,7 +206,7 @@ export default function Profile() {
                             </form>
                         </div>
                     </div>
-                    <UserPosts posts={ posts } deletePost={ deleteHandler }/>
+                    <UserPosts show={show} posts={ posts } deletePost={ deleteHandler }/>
                 </div>  
             }
         </>

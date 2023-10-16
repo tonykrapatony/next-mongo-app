@@ -35,10 +35,9 @@ export const authOptions = {
     callbacks: {
         jwt({ token, user, session, trigger }) {
             // console.log('jwt', token, user, session, trigger)
-            if (trigger === 'update' && session?.username && session?.email && session?.file) {
+            if (trigger === 'update' && session?.username && session?.email) {
                 token.username = session.username;
                 token.email = session.email;
-                token.file = session.file;
             }
 
             if(user) {

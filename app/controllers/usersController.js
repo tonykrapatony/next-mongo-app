@@ -58,11 +58,8 @@ export const updateUser = async (username, email, file, id) => {
     const result = await usersCollection.findOneAndUpdate({_id: new ObjectId(id)}, {$set: { username: username, email: email, file: file }});
 
     if (result) {
-        // console.log('result', result)
-        // console.log('User updated successfully');
         return 'User updated successfully'
     } else {
-        // console.error('Failed to add user');
         return 'Failed to update user'
     }
 

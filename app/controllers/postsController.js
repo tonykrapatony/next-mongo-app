@@ -1,6 +1,5 @@
 import connect from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import { getUser } from "./usersController";
 
 export const getPosts = async () => {
     const db = await connect();

@@ -16,17 +16,13 @@ export async function POST(request) {
         // console.log('result', result)
 
         if (result.insertedId) {
-            // Пост успішно додано
             return NextResponse.json({ status: 'ok', message: 'Post added successfully' });
         } else {
-            // Якщо не вдалося вставити пост
             return NextResponse.error({ status: 'error', message: 'Failed to add post' });
         }
 
     } catch (error) {
         // console.error('Error adding user:', error);
-
-        // Встановлюємо статус "error" у разі помилки
         return NextResponse.error({ status: 'error', message: 'An error occurred' });
     }
 }

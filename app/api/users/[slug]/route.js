@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, params) {
     const slug = params.params.slug; 
-    console.log('slug', slug)
 
     const data = await getUser(slug);
 
@@ -12,8 +11,6 @@ export async function GET(req, params) {
 
 export async function PUT(request, params) {
     const slug = params.params.slug; 
-    console.log('slug', slug);
-    console.log('request', request);
 
     const { username, email, id, file} = await request.json();
     try {

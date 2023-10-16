@@ -3,7 +3,7 @@ import React from 'react'
 import UserPostsItem from './UserPostsItem';
 // import { useGetUserPostsQuery } from '@/redux';
 
-export default function UserPosts({ posts, deletePost }) {
+export default function UserPosts({ show, posts, deletePost }) {
     // const { data = [], isLoading} = useGetUserPostsQuery(id);
 
     return (
@@ -11,7 +11,7 @@ export default function UserPosts({ posts, deletePost }) {
             <h1 className="text-2xl p-[10px] m-[10px]">Posts:</h1>
             {
                 posts && posts.map(({ _id, title, content, authorName }) => (
-                    <UserPostsItem key={_id} post={{ _id, title, content, authorName }} deletePost={deletePost}/>
+                    <UserPostsItem show={show} key={_id} post={{ _id, title, content, authorName }} deletePost={deletePost}/>
                 ))
             }
         </div>
