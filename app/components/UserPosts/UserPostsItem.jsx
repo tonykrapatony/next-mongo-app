@@ -35,7 +35,7 @@ export default function UserPostsItem({ post, deletePost }) {
             <p className="block text-2xl">{title}</p>
             <p className="block text-md">{content}</p>
             <div>
-                <button id={authorName} className="border border-black rounded-sm my-[5px] px-2" onClick={(e) => deletePost(e)}>Delete</button>
+                <button id={_id} className="border border-black rounded-sm my-[5px] px-2" onClick={(e) => deletePost(e)}>Delete</button>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import { useState } from "react"
-import { imageUploader } from '@/utils/imageUploader';
 import { useRegisterUserMutation } from '@/redux';
 import { useRouter  } from 'next/navigation';
 
@@ -11,27 +10,15 @@ export default function Registration() {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [selectedImage, setSelectedImage] = useState(null);
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      console.log(file)
-      setSelectedImage(file);
-    };
   
     const submitHandler = async (e) => {
       e.preventDefault();
       if (username && email && password) {
-        await imageUploader(selectedImage);
-        let file;
-        if (selectedImage) {
-          file = `storage/images/${selectedImage.name}`;
-        } else {
-          file = 'images/profile.png';
-        }
+        let file = 'images/profile.png';
         try {
           const user = {
             username: username,
@@ -67,7 +54,6 @@ export default function Registration() {
             <form className="flex flex-col items-center" onSubmit={(e) => submitHandler(e)}>
                 <input className="w-full border border-black rounded-sm my-[5px] px-2" type="text" name="username" placeholder="User name" onChange={(e) => setUsername(e.target.value)}/>
                 <input className="w-full border border-black rounded-sm my-[5px] px-2" type="email" name="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
-                <input className="w-full border border-black rounded-sm my-[5px]" type="file" name="file" accept="image/*" onChange={handleImageChange}/>
                 <input className="w-full border border-black rounded-sm my-[5px] px-2" type="password" name="password" placeholder="Passsword" onChange={(e) => setPassword(e.target.value)}/>
                 <button className="border border-black rounded-sm my-[5px] px-2" type="submit">Register</button>
             </form>
