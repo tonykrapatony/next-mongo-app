@@ -19,14 +19,6 @@ ol {
   list-style: none;
 }
 
-body {
-  font-family: $font-family;
-}
-
 ::-webkit-scrollbar {
   @apply w-1;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-primary rounded-md;
 }
