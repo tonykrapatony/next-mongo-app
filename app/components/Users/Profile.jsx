@@ -145,8 +145,6 @@ export default function Profile() {
             const updatedUserData = await updateUser({ id, user });
 
             if (updatedUserData.data.status === 'ok') {
-                // console.log(updatedUserData.data.message);
-                // console.log(user.username)
                 setSuccess(updatedUserData.data.message);
                 setTimeout(() => {
                     setSuccess('')
