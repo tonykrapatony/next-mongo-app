@@ -1,4 +1,4 @@
-import { addUser, getUsers } from "@/app/controllers/usersController";
+import { addUser, getUsers } from "@/app/api/controllers/usersController";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {

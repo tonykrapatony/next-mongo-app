@@ -39,6 +39,18 @@ export const addPost = async (title, content, id, authorName) => {
     }
 }
 
+export const updatePost = async (id, content) => {
+    const db = await connect();
+    const postsCollection = db.collection('posts');
+
+    const result = await postsCollection.findOneAndUpdate({_id: new ObjectId(id)}, {$set: { content: content}});
+    if (result) {
+        return 'Post updated successfully'
+    } else {
+        return 'Failed to update post'
+    }
+}
+
 export const deletePost = async ( id ) => {
 
     const db = await connect();

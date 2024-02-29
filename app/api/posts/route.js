@@ -1,4 +1,4 @@
-import { addPost, getPosts } from "@/app/controllers/postsController";
+import { addPost, getPosts } from "@/app/api/controllers/postsController";
 import { NextResponse } from "next/server";
 
 export async function GET(req, params) {

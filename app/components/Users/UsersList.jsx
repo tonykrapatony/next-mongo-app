@@ -1,11 +1,12 @@
 'use client'
-
 import React from 'react'
-import { useGetUsersQuery } from "@/redux";
 import UsersItem from './UsersItem';
+import { useProfileQueries } from '@/helpers/helpers';
 
 export default function UsersList() {
-    const {data = [], isLoading} = useGetUsersQuery();
+
+    const { getUsers } = useProfileQueries();
+    const { data, isLoading } = getUsers()
     // console.log(data)
     return (
         <div className="w-full max-w-[500px] flex flex-col items-center gap-y-[20px]">

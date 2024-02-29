@@ -2,16 +2,13 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import UserPosts from "../UserPosts/UserPostsList";
-import { useUpdateUserMutation, useDeletePostsMutation } from "@/redux";
+import PostsList from "../Posts/PostsList";
+import { useProfileQueries } from "@/helpers/helpers";
 
 export default function Profile() {
-    const { data: session, status, update  } = useSession()   
-    const show = true;
-    const [ updateUser ] = useUpdateUserMutation();
-    const [ deletePosts ] = useDeletePostsMutation();
-
-
+    const { data: session, status, update  } = useSession()  
+    const { updateUser, deletePosts, updatePost, addCommentPost } = useProfileQueries();
+    
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [title, setTitle] = useState('');
@@ -82,7 +79,7 @@ export default function Profile() {
         }
     }
 
-    const deleteHandler = async (e) => {
+    const deletePostHandler = async (e) => {
         e.preventDefault();
         console.log(e.target.id);
         let id = e.target.id;
@@ -97,12 +94,34 @@ export default function Profile() {
                     // window.location.reload();
                 }, 2000);
             } else {
-                console.error('Помилка видалення поста:', error);
+                console.error('Error deleting post:', error);
             }
         } catch (error) {
-            console.error('Помилка видалення поста:', error);
+            console.error('Error deleting post:', error);
         }
     };
+
+    const updatePostHandler = async (id, content) => {
+        const postContent = content;
+        try {
+            const updatedPostData = await updatePost({ id, postContent });
+
+            if (updatedPostData.data.status === 'ok') {
+                console.log(updatedPostData);
+                setSuccess(updatedPostData.data.message);
+                setTimeout(() => {
+                    setSuccess(null);
+                }, 2000);
+                return true;
+            } else {
+                throw new Error('Failed to update user')
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
 
     const handleEditClick = (field) => {
         setEdit((prevState) => ({
@@ -156,7 +175,7 @@ export default function Profile() {
             {success && <h1 className="absolute top-[50px] mt-[50px] text-2xl text-green-700 text-center">{success}</h1>}
             { user && 
                 <div className="w-full flex item-center gap-x-[20px] p-10px">
-                    <div className="w-1/2">
+                    <div className="w-2/5">
                         <div className="w-full">
                             <div className="flex items-start">
                                 <div className="w-[100px] h-[100px] rounded-[50%] overflow-hidden">
@@ -206,7 +225,7 @@ export default function Profile() {
                             </form>
                         </div>
                     </div>
-                    <UserPosts show={show} posts={ posts } deletePost={ deleteHandler }/>
+                    <PostsList posts={ posts } updatePost={updatePostHandler} deletePost={ deletePostHandler } setSuccess={setSuccess}/>
                 </div>  
             }
         </>

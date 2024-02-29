@@ -10,6 +10,16 @@ export const postsApi = createApi({
         getUserPosts: build.query({
             query: (id) => `api/posts/${id}`,
         }),
+        updatePost: build.mutation({
+            query({ id, ...body }) {
+                console.log(body)
+                return {
+                    url: `api/posts/${id}`,
+                    method: 'PUT',
+                    body: body,
+                }
+            }
+        }),
         deletePosts: build.mutation({
             query: (id) => ({
                 url: `api/posts/${id}`,
@@ -19,4 +29,4 @@ export const postsApi = createApi({
     })
 })
 
-export const { useGetPostsQuery, useGetUserPostsQuery, useDeletePostsMutation } = postsApi;
+export const { useGetPostsQuery, useGetUserPostsQuery, useDeletePostsMutation, useUpdatePostMutation } = postsApi;
